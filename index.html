@@ -2,8 +2,106 @@
 <html>
 <head>
 	<title>Hello</title>
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.0/howler.js"></script>
+	<!-- <script src="db.js"></script> -->
+
+	<style type="text/css">
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		.main {
+			display: none;
+		}
+
+		#navBarAndMain {
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 30px;
+		}
+
+		#playerArea {
+			width: 100%;
+			height: 50px;
+			background-color: grey;
+
+			position: fixed;
+			bottom: 0;
+		}
+
+		#navBar {
+			width: 100%;
+			height: 50px;
+			background-color: grey;
+		}
+	</style>
+
+	<script type="text/javascript">
+
+		var currentMain = '#main1'
+		const fadeDuration = 250
+
+		function switchMain(which) {
+			if (currentMain != '#main' + which.toString()) {
+				$(currentMain).fadeOut(fadeDuration, function() {
+					$(currentMain).hide()
+					currentMain = '#main' + which.toString()
+					$(currentMain).fadeIn(fadeDuration)
+					$(currentMain).show()
+				})
+			}
+		}
+
+		$(function() {
+
+			// fade in main div
+			$(currentMain).fadeIn();
+			$(currentMain).show();
+
+			// setup navigation buttons
+			$('#nav1').click(function(event) { switchMain(1) })
+			$('#nav2').click(function(event) { switchMain(2) })
+
+			// setup player area
+			$('#play').click(function() {
+				var sound = new Howl({
+					src: ['https://fruup.github.io/wav/Chillig - Master_02_01_20.wav'],
+					volume: 0.2,
+					running: false
+				})
+
+				$(this).text('Pause')
+			})
+		})
+
+	</script>
 </head>
 <body>
-	Hello world!
+
+	<div id='navBarAndMain'>
+		<div id='navBar'>
+			<button id='nav1' class='navButton'>Music</button>
+			<button id='nav2' class='navButton'>About</button>
+		</div>
+
+		<div id="main1" class='main'>
+			Hi I make music
+		</div>
+
+		<div id="main2" class='main'>
+			Hi my name is Leon
+		</div>
+	</div>
+
+	<div id='playerArea'>
+		<button id='play'>Play</button>
+		<button>Stop</button>
+		<button>Mute</button>
+	</div>
+
 </body>
 </html>
