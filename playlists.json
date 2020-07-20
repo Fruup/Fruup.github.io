@@ -1,0 +1,9 @@
+{
+	"musicalmoments": {
+		"title": "Musical Moments",
+		"cover": "musicalmoments_artwork.png",
+		"tracks": [
+			"voyage"
+		]
+	}
+}

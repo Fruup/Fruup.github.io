@@ -1,0 +1,44 @@
+{
+	"chillig": {
+		"title": "Chillig",
+		"file": "Chillig - Master_02_01_20.wav",
+		"cover": "chillig_artwork.png",
+		"date": {
+			"day": 1,
+			"month": 1,
+			"year": 1900
+		},
+		"tags": [
+			"Lo-Fi"
+		]
+	},
+
+	"p01": {
+		"title": "P01",
+		"file": "P01 - Master - 31_10_19.wav",
+		"cover": "p02_artwork.png",
+		"date": {
+			"day": 1,
+			"month": 1,
+			"year": 1900
+		},
+		"tags": [
+			"Piano",
+			"Orchestral"
+		]
+	},
+
+	"voyage": {
+		"title": "Petit Voyage",
+		"file": "Petit Voyage - Mix_04_02_20.wav",
+		"cover": "petitvoyage_artwork.png",
+		"date": {
+			"day": 1,
+			"month": 1,
+			"year": 1900
+		},
+		"tags": [
+			"Piano"
+		]
+	}
+}
