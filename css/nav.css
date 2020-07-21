@@ -1,0 +1,80 @@
+#navBarAndMain {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	/*top: 30px;*/
+}
+
+#navBar {
+	width: 100%;
+	height: 40px;
+
+	display: inline-flex;
+
+	border-style: solid;
+	border-width: 0;
+	border-bottom-width: 1px;
+	border-color: black;
+}
+
+#menuButtons {
+	width: inherit;
+	height: 100%;
+	margin-left: 20%;
+
+	display: inline-flex;
+}
+
+.menuButton {
+	width: 80px;
+	height: 100%;
+
+	padding: 0;
+
+	background-color: #333333;
+	color: white;
+
+	border-style: solid;
+	border-color: white;
+
+	border-width: 0;
+	border-left-width: 1px;
+}
+
+#menu1 {
+	border-left-width: 0;
+}
+
+#socialButtons {
+	height: 100%;
+	margin-right: 20%;
+
+	display: inline-flex;
+}
+
+.socialButton {
+	width: 40px;
+	height: 100%;
+
+	padding: 0;
+
+	background-color: #333333;
+	color: white;
+
+	border-style: solid;
+	border-color: white;
+	border-width: 0;
+	border-left-width: 1px;
+
+	cursor: pointer;
+}
+
+.socialImage {
+	height: 50%;
+	width: auto;
+	object-fit: contain;
+}
+
+#social1 {
+	border-left-width: 0;
+}
