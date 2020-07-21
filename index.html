@@ -191,37 +191,38 @@
 
 			// setup timeline interaction
 			$('#timeline').mousedown(function(event) {
+				if (event.button == 0) {
+					// start seeking
+					seeking = true
 
-				// start seeking
-				seeking = true
-
-				// seek proc
-				const func = function(event_) {
-					if (event_.button == 0) {
+					// seek proc
+					const func = function(event_) {
 						// calculate progress along timeline
 						seekPercentage = ((event_.pageX - $('#timeline').offset().left) / $('#timeline').width()).clamp(0.0, 1.0)
 
 						// set marker position
 						$('#timelineMarker').css({ left: (100 * seekPercentage) + '%' })
 					}
+
+					func(event)
+
+					// listen for mouse move events
+					$(document).on('mousemove', func)
 				}
-
-				func(event)
-
-				// listen for mouse move events
-				$(document).on('mousemove', func)
 			})
 
 			$(document).mouseup(function(event) {
-				// stop listening for mouse move events
-				$(document).off('mousemove')
+				if (event.button == 0) {
+					// stop listening for mouse move events
+					$(document).off('mousemove')
 
-				if (seeking) {
-					// seek track
-					getCurrentTrack().seek(seekPercentage * getCurrentTrack().duration())
+					if (seeking) {
+						// seek track
+						getCurrentTrack().seek(seekPercentage * getCurrentTrack().duration())
 
-					// stop seeking
-					seeking = false
+						// stop seeking
+						seeking = false
+					}
 				}
 			})
 
