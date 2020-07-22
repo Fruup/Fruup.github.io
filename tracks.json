@@ -1,8 +1,6 @@
 {
 	"chillig": {
 		"title": "Chillig",
-		"file": "Chillig - Master_02_01_20.wav",
-		"cover": "chillig_artwork.png",
 		"date": {
 			"day": 1,
 			"month": 1,
@@ -13,12 +11,35 @@
 		]
 	},
 
-	"p01": {
-		"title": "P01",
-		"file": "P01 - Master - 31_10_19.wav",
-		"cover": "p02_artwork.png",
+	"desert": {
+		"title": "A Desert Theme",
 		"date": {
-			"day": 1,
+			"day": 2,
+			"month": 1,
+			"year": 1900
+		},
+		"tags": [
+			"Orchestral"
+		]
+	},
+
+	"fire": {
+		"title": "Fire",
+		"date": {
+			"day": 3,
+			"month": 1,
+			"year": 1900
+		},
+		"tags": [
+			"Synth",
+			"Piano"
+		]
+	},
+
+	"hide": {
+		"title": "Hide",
+		"date": {
+			"day": 3,
 			"month": 1,
 			"year": 1900
 		},
@@ -28,12 +49,48 @@
 		]
 	},
 
+	"p01": {
+		"title": "P01",
+		"date": {
+			"day": 3,
+			"month": 1,
+			"year": 1900
+		},
+		"tags": [
+			"Piano",
+			"Orchestral"
+		]
+	},
+
+	"p02": {
+		"title": "P02",
+		"date": {
+			"day": 3,
+			"month": 1,
+			"year": 1900
+		},
+		"tags": [
+			"EDM",
+			"Synth"
+		]
+	},
+
+	"trailer": {
+		"title": "Trailer Music",
+		"date": {
+			"day": 3,
+			"month": 1,
+			"year": 1900
+		},
+		"tags": [
+			"Orchestral"
+		]
+	},
+
 	"voyage": {
 		"title": "Petit Voyage",
-		"file": "Petit Voyage - Mix_04_02_20.wav",
-		"cover": "petitvoyage_artwork.png",
 		"date": {
-			"day": 1,
+			"day": 3,
 			"month": 1,
 			"year": 1900
 		},

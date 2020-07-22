@@ -4,9 +4,44 @@
 
 	text-align: center;
 
-	margin-top: 20px;
+	margin-top: 30px;
 	margin-left: auto;
 	margin-right: auto;
 
-	width: 50%;
+	width: 60%;
+}
+
+#tracks {
+	width: 100%;
+
+	display: inline-flex;
+	justify-content: space-around;
+	align-items: center;
+	flex-wrap: wrap;
+}
+
+.track {
+	width: 30%;
+
+	margin: 0;
+	margin-bottom: 10px;
+
+    background-image: none;
+    background-position: center;
+    background-size: cover;
+
+    background-color: aliceblue;
+
+	border-width: 1px;
+    padding: 10px;
+    
+    border-color: rgb(34, 34, 34);
+    border-style: solid;
+}
+
+/* keep them squared */
+.track:after {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
 }

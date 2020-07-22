@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Leon Scherer</title>
+	<title>Jo</title>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.0/howler.js"></script>
@@ -19,6 +19,14 @@
 		    -moz-user-select: none;
 		    -ms-user-select: none;
 		    user-select: none;
+
+		    font-family: monospace;
+		}
+
+		img {
+			/* Prevents dragging of images/divs etc */
+			-webkit-user-drag: none;
+			user-drag: none;
 		}
 
 		/* hide blue outline when button highlighted */
@@ -29,220 +37,51 @@
 	<link rel="stylesheet" type="text/css" href="css/main.css">
 	<link rel="stylesheet" type="text/css" href="css/player.css">
 	<link rel="stylesheet" type="text/css" href="css/nav.css">
+	<link rel="stylesheet" type="text/css" href="css/trackElement.css">
+
+	<script type="text/javascript" src="js/globals.js"></script>
+	<script type="text/javascript" src="js/db.js"></script>
+	<script type="text/javascript" src="js/mainContent.js"></script>
+	<script type="text/javascript" src="js/player.js"></script>
+	<script type="text/javascript" src="js/trackElement.js"></script>
 
 	<script type="text/javascript">
-
-		// global properties
-		var currentMainIndex = null
-		const fadeDuration = 250
-
-		const tracks = {}
-		var currentTrack = null
-
-		const playlists = {}
-		var currentPlaylist = null
-
-		var seeking = false
-		var seekPercentage = 0.0
-
-		// set initial volume
-		var currentVolume = 0.2
-		Howler.volume(currentVolume)
-
-		// --------------------------------------------
-
-		Number.prototype.clamp = function(min, max) {
-		  return Math.min(Math.max(this, min), max);
-		}
-
-		function getCurrentMainElement() {
-			if (currentMainIndex != null) return '#main' + currentMainIndex
-			else return null
-		}
-
-		function getCurrentTrack() {
-			return tracks[currentTrack]
-		}
-
-		function pauseCurrentTrack() {
-			if (getCurrentTrack() != null)
-				getCurrentTrack().pause()
-		}
-
-		function toggleCurrentTrack() {
-			if (getCurrentTrack() != null) {
-				if (getCurrentTrack().playing()) getCurrentTrack().pause()
-				else getCurrentTrack().play()
-			}
-		}
-
-		function selectTrack(identifier) {
-			// set
-			currentTrack = identifier
-
-			// TODO: set track metadata
-			// TODO: load waveform image
-		}
-
-		async function loadTracks() {
-			// load track data and metadata
-			$.getJSON('https://fruup.github.io/tracks.json', function(data) {
-				for (track in data) {
-					tracks[track] = new Howl({
-						src: ['https://fruup.github.io/wav/' + data[track].file],
-						preload: false,
-						//preload: true,
-						html5: true
-					})
-
-					//tracks[track].load()
-				}
-
-				// set first track
-				selectTrack(Object.keys(tracks)[0])
-
-				// preload first track
-				getCurrentTrack().load()
-			})
-
-			// load playlists
-			$.getJSON('https://fruup.github.io/playlists.json', function(data) {
-				// load tracks
-				for (playlist in data) {
-					playlists[playlist]
-				}
-
-				// set first track
-				currentTrack = Object.keys(tracks)[0]
-			})
-		}
-
-		function switchMain(which) {
-			if (currentMainIndex != which) {
-
-				if (currentMainIndex != null) {
-					// animate menu button
-					const prevMenuButton = '#menu' + currentMainIndex
-
-					$(prevMenuButton).animate({
-						opacity: '1.0'
-					}, fadeDuration)
-				}
-
-				// animate new menu button
-				const nextMenuButton = '#menu' + which
-				$(nextMenuButton).animate({
-					opacity: '.5'
-				}, fadeDuration)
-
-				function initNewMain() {
-					// set new index
-					currentMainIndex = which
-
-					// fade in new main
-					$(getCurrentMainElement()).fadeIn(fadeDuration)
-					$(getCurrentMainElement()).show()
-				}
-
-				if (currentMainIndex != null) {
-					// fade out prev main
-					$(getCurrentMainElement()).fadeOut(fadeDuration, function() {
-						// hide prev main
-						$(getCurrentMainElement()).hide()
-
-						// show new main
-						initNewMain()
-					})
-				}
-
-				// show new main
-				else initNewMain()
-			}
-		}
-
-		$(function()
-		{
-			// load tracks async
-			loadTracks()
-
-			// go to main page
-			switchMain(1);
-
-			// block scrolling through spacebar press, and pause/resume
-			window.onkeydown = function(e) {
-			  if (e.which == 32 && e.target == document.body) {
-			  	// pause/resume track
-				toggleCurrentTrack();
+		// load tracks async
+		db.loadTracks()
+		
+		// block scrolling through spacebar press, and pause/resume
+		window.onkeydown = function(e) {
+			if (e.which == 32 && e.target == document.body) {
+				// pause/resume track
+				player.toggleCurrentTrack();
 
 				// prevent scrolling
-			    e.preventDefault();
-			  }
-			};
+				e.preventDefault();
+			}
+		}
+
+		// document ready
+		$(function() {
+			// setup all track elements
+			setupTrackElements()
+
+			// go to main page
+			main.switch(1);
 
 			// setup navigation buttons
-			$('#menu1').click(function(event) { switchMain(1) })
-			$('#menu2').click(function(event) { switchMain(2) })
-			$('#menu3').click(function(event) { switchMain(3) })
+			$('#menu1').click(function(event) { main.switch(1) })
+			$('#menu2').click(function(event) { main.switch(2) })
+			$('#menu3').click(function(event) { main.switch(3) })
 
-			// setup player area
-			$('#play').click(function() {
-				toggleCurrentTrack();
-			})
-
-			// setup timeline interaction
-			$('#timeline').mousedown(function(event) {
-				if (event.button == 0) {
-					// start seeking
-					seeking = true
-
-					// seek proc
-					const func = function(event_) {
-						// calculate progress along timeline
-						seekPercentage = ((event_.pageX - $('#timeline').offset().left) / $('#timeline').width()).clamp(0.0, 1.0)
-
-						// set marker position
-						$('#timelineMarker').css({ left: (100 * seekPercentage) + '%' })
-					}
-
-					func(event)
-
-					// listen for mouse move events
-					$(document).on('mousemove', func)
-				}
-			})
-
-			$(document).mouseup(function(event) {
-				if (event.button == 0) {
-					// stop listening for mouse move events
-					$(document).off('mousemove')
-
-					if (seeking) {
-						// seek track
-						getCurrentTrack().seek(seekPercentage * getCurrentTrack().duration())
-
-						// stop seeking
-						seeking = false
-					}
-				}
-			})
-
-			// start timeline update thread
-			setInterval(function() {
-				if (currentTrack != null && tracks[currentTrack].playing() && seeking == false) {
-					const progress = tracks[currentTrack].seek() / tracks[currentTrack].duration()
-
-					// update timeline slider
-					$('#timelineMarker').css({ left: (100 * progress) + '%' })
-				}
-			}, 200)
+			// setup player
+			player.setup()
 		})
-
 	</script>
 </head>
 <body>
 
 	<div id='titleArea' style='width: 100%; height: 50px;'>
-		<div style='font-family: "Cousine", monospace; font-size: 40px;'>
+		<div style='font-family: monospace; font-size: 50px;'>
 			leon scherer
 		</div>
 	</div>
@@ -250,6 +89,7 @@
 	<div id='navBarAndMain'>
 		<div id='navBar'>
 			<div id='menuButtons'>
+				<!-- TODO: Make these divs, because buttons block space bar play/resume functionality -->
 				<button id='menu1' class='menuButton'>Music</button>
 				<button id='menu2' class='menuButton'>About</button>
 				<button id='menu3' class='menuButton'>Contact</button>
@@ -259,13 +99,15 @@
 				<div id='social1' class='socialButton'>
 					<img class='socialImage' src='img/twitter.png'>
 				</div>
-				
-				<img id='social2' class='socialButton' src='img/instagram.png'>
+
+				<div id='social2' class='socialButton'>
+					<img class='socialImage' src='img/instagram.png'>
+				</div>
 			</div>
 		</div>
 
 		<div id="main1" class='main'>
-			Hi I make music check it out
+			<div id='tracks'></div>
 		</div>
 
 		<div id="main2" class='main'>
@@ -292,7 +134,7 @@
 				</div>
 
 				<div id='timeline'>
-					<img src='img/wavforms/chillig.png' style='width: 100%; height: 100%; object-fit: cover;'>
+					<img id='timelineWaveform' style='width: 100%; height: 100%; object-fit: fill;'>
 
 					<div id='timelineMarker'>
 						<div id='timelineMarkerContent'></div>

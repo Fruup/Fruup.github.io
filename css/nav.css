@@ -1,6 +1,6 @@
 #navBarAndMain {
 	width: 100%;
-	height: 100%;
+	/*height: 100%;*/
 	position: absolute;
 	/*top: 30px;*/
 }
@@ -31,7 +31,7 @@
 
 	padding: 0;
 
-	background-color: #333333;
+	background-color: #1f1f1f;
 	color: white;
 
 	border-style: solid;
@@ -58,7 +58,9 @@
 
 	padding: 0;
 
-	background-color: #333333;
+	margin-left: 1px;
+
+	background-color: #1f1f1f;
 	color: white;
 
 	border-style: solid;
@@ -66,15 +68,19 @@
 	border-width: 0;
 	border-left-width: 1px;
 
-	cursor: pointer;
-}
+	border-radius: 100px;
 
-.socialImage {
-	height: 50%;
-	width: auto;
-	object-fit: contain;
+	cursor: pointer;
 }
 
 #social1 {
 	border-left-width: 0;
+	margin-left: 0;
+}
+
+.socialImage {
+	height: 50%;
+	object-fit: contain;
+
+	transform: translate(50%, 50%);
 }
