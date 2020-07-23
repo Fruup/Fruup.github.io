@@ -46,9 +46,6 @@
 	<script type="text/javascript" src="js/trackElement.js"></script>
 
 	<script type="text/javascript">
-		// block document ready and wait for tracks to finish loading
-		$.holdReady(true)
-
 		// load tracks async
 		db.loadTracks()
 		
@@ -65,9 +62,6 @@
 
 		// document ready
 		$(function() {
-			// setup all track elements
-			setupTrackElements()
-
 			// go to main page
 			main.switch(1);
 
@@ -75,9 +69,6 @@
 			$('#menu1').click(function(event) { main.switch(1) })
 			$('#menu2').click(function(event) { main.switch(2) })
 			$('#menu3').click(function(event) { main.switch(3) })
-
-			// setup player
-			player.setup()
 		})
 	</script>
 </head>

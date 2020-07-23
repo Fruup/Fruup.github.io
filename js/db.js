@@ -50,8 +50,11 @@ db.loadTracks = async function() {
         // set newest track
         player.setCurrentTrack(db.getTracksByDate()[0])
 
-        // document ready
-        $.holdReady(false)
+        // setup all track elements
+        setupTrackElements()
+
+        // setup player
+        player.setup()
     })
 
     // load playlists
