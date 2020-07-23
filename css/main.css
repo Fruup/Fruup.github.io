@@ -37,7 +37,9 @@
     padding: 10px;
     
     border-color: rgb(34, 34, 34);
-    border-style: solid;
+	border-style: solid;
+	
+	cursor: pointer;
 }
 
 /* keep them squared */
