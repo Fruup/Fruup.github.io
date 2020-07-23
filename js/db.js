@@ -3,7 +3,8 @@
 function Track(trackid, title, date, tags) {
     // load wav file
     this.howl = new Howl({
-        src: ['/wav/' + trackid + '.wav'],
+        //src: ['/wav/' + trackid + '.wav'],
+        src: 'https://media.githubusercontent.com/media/Fruup/Fruup.github.io/master/wav/' + trackid + '.wav',
         preload: false,
         html5: true,
     })
