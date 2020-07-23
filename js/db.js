@@ -49,11 +49,13 @@ db.loadTracks = async function() {
         
         // set newest track
         player.setCurrentTrack(db.getTracksByDate()[0])
+
+        // document ready
+        $.holdReady(false)
     })
 
     // load playlists
     $.getJSON('/playlists.json', function(data) {
-        // load tracks
         for (playlist in data) {
             // TODO
         }
