@@ -97,5 +97,17 @@
 		"tags": [
 			"Piano"
 		]
+	},
+
+	"kakariko": {
+		"title": "Kakariko Village",
+		"date": {
+			"day": 5,
+			"month": 8,
+			"year": 2020
+		},
+		"tags": [
+			"Piano", "Strings"
+		]
 	}
 }

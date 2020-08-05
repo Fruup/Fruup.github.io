@@ -32,6 +32,12 @@ db = {
 
 /* DB methods */
 db.loadTracks = async function() {
+    // get URL variables
+    var urlVars = {};
+    window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
+        urlVars[key] = value;
+    });        
+        
     // load track data and metadata
     $.getJSON('/tracks.json', function(data) {
         for (trackid in data) {
@@ -47,8 +53,14 @@ db.loadTracks = async function() {
             )
         }
         
-        // set newest track
-        player.setCurrentTrack(db.getTracksByDate()[0])
+        if (urlVars['trackid'] != null && urlVars['trackid'] in db.tracks) {
+            // set track specified in URL
+            player.setCurrentTrack(urlVars['trackid'])
+        }
+        else {
+            // set newest track
+            player.setCurrentTrack(db.getTracksByDate()[0])
+        }
 
         // setup all track elements
         setupTrackElements()
