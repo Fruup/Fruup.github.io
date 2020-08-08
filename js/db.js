@@ -1,6 +1,6 @@
 /* DB values */
 
-function Track(trackid, title, date, tags) {
+function Track(trackid, title, date, tags, coverArtist, coverArtistURL) {
     // load wav file
     this.howl = new Howl({
         src: ['/mp3/' + trackid + '.mp3'],
@@ -15,6 +15,8 @@ function Track(trackid, title, date, tags) {
     this.cover = '/covers/' + trackid + '.jpg'
     this.waveform = '/img/waveforms/' + trackid + '.png'
     this.tags = tags
+    this.coverArtist = coverArtist
+    this.coverArtistURL = coverArtistURL
 
     // methods
     this.playing = () => this.howl.playing()
@@ -37,7 +39,7 @@ db.loadTracks = async function() {
     window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, function(m,key,value) {
         urlVars[key] = value;
     });        
-        
+    
     // load track data and metadata
     $.getJSON('/tracks.json', function(data) {
         for (trackid in data) {
@@ -49,7 +51,9 @@ db.loadTracks = async function() {
                     data[trackid].date.year,
                     data[trackid].date.month,
                     data[trackid].date.day),
-                data[trackid].tags
+                data[trackid].tags,
+                data[trackid].cover_artist,
+                data[trackid].cover_artist_url,
             )
         }
         

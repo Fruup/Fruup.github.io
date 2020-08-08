@@ -85,7 +85,20 @@ player.setCurrentTrack = function(identifier) {
     $('#trackTitle').text(player.getCurrentTrack().title)
     //$('#trackPlaylist').text(player.getCurrentTrack().playlist)
 
-    // TODO: set waveform
+    var metaSpacerElem = $('#trackMetaSpacer')
+    var URLelem = $('#trackCoverArtistURL')
+    var coverMetaElem = $('#trackCoverMeta')
+
+    if (this.getCurrentTrack().coverArtist != null) {
+        coverMetaElem.show()
+        URLelem.attr('href', this.getCurrentTrack().coverArtistURL)
+        URLelem.text(this.getCurrentTrack().coverArtist)
+    }
+    else {
+        coverMetaElem.hide()
+    }
+
+    // set waveform
     $('#timelineWaveform').attr('src', player.getCurrentTrack().waveform)
 }
 

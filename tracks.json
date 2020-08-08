@@ -33,7 +33,10 @@
 		"tags": [
 			"Synth",
 			"Piano"
-		]
+		],
+
+		"cover_artist": "Nico Ismaili",
+		"cover_artist_url": "https://nico.ismaili.de"
 	},
 
 	"hide": {
@@ -108,6 +111,9 @@
 		},
 		"tags": [
 			"Piano", "Strings"
-		]
+		],
+
+		"cover_artist": "Jessica Smith",
+		"cover_artist_url": "https://artofjess.com"
 	}
 }
