@@ -47,7 +47,8 @@
 }
 
 .menuButton {
-	width: 100px;
+	width: 90px;
+	
 	height: 100%;
 
 	padding: 0;
@@ -63,7 +64,7 @@
 
 	font-family: 'Moonglade';
 	text-transform: uppercase;
-	font-size: 15px;
+	font-size: 13px;
 }
 
 #menu1 {

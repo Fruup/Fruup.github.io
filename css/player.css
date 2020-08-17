@@ -31,7 +31,7 @@
 
 @media (max-device-width: 1000px) {
 	#playerStickyFooter {
-		height: 7cm;
+		/*height: 5cm;*/
 	}
 	
 	#playerArea {
