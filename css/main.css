@@ -8,7 +8,14 @@
 	margin-left: auto;
 	margin-right: auto;
 
-	width: 60%;
+	width: 1250px;
+	/*max-width: 100%;*/
+}
+
+@media (max-width: 1250px) {
+	.main {
+		width: 100%;
+	}
 }
 
 #tracks {
@@ -20,8 +27,8 @@
 	flex-wrap: wrap;*/
 
 	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
-	grid-auto-rows: 1fr;
+	grid-template-columns: repeat(auto-fill, minmax(6cm, 1fr));
+	grid-auto-rows: 0fr;
 }
 
 #tracks::before {
@@ -38,7 +45,7 @@
 }
 
 .track {
-	margin: 5px;
+	margin: 4px;
 
     background-image: none;
     background-position: center;
@@ -53,6 +60,12 @@
 	border-style: solid;
 	
 	cursor: pointer;
+}
+
+@media (max-device-width: 1250px) {
+	#tracks {
+		grid-template-columns: repeat(auto-fill, minmax(7cm, 1fr));
+	}
 }
 
 /* keep them squared */
