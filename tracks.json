@@ -8,7 +8,12 @@
 		},
 		"tags": [
 			"Lo-Fi"
-		]
+		],
+
+		"cover_artist": "Martith",
+		"cover_artist_url": "https://www.instagram.com/martith.art/",
+
+		"cover_approved": false
 	},
 
 	"desert": {
@@ -20,7 +25,12 @@
 		},
 		"tags": [
 			"Orchestral"
-		]
+		],
+
+		"cover_artist": "Charles Morgenstern",
+		"cover_artist_url": "https://www.tetramodal.com",
+
+		"cover_approved": true
 	},
 
 	"fire": {
@@ -36,7 +46,9 @@
 		],
 
 		"cover_artist": "Nico Ismaili",
-		"cover_artist_url": "https://nico.ismaili.de"
+		"cover_artist_url": "https://nico.ismaili.de",
+
+		"cover_approved": true
 	},
 
 	"hide": {
@@ -49,7 +61,9 @@
 		"tags": [
 			"Piano",
 			"Orchestral"
-		]
+		],
+
+		"cover_approved": false
 	},
 
 	"p01": {
@@ -62,7 +76,12 @@
 		"tags": [
 			"Piano",
 			"Orchestral"
-		]
+		],
+
+		"cover_artist": "Vaghauk",
+		"cover_artist_url": "https://www.deviantart.com/vaghauk",
+
+		"cover_approved": false
 	},
 
 	"p02": {
@@ -75,7 +94,12 @@
 		"tags": [
 			"EDM",
 			"Synth"
-		]
+		],
+
+		"cover_artist": "Nathan",
+		"cover_artist_url": "https://www.deviantart.com/sunshineproxy",
+
+		"cover_approved": true
 	},
 
 	"trailer": {
@@ -87,7 +111,9 @@
 		},
 		"tags": [
 			"Orchestral"
-		]
+		],
+
+		"cover_approved": true
 	},
 
 	"voyage": {
@@ -99,7 +125,12 @@
 		},
 		"tags": [
 			"Piano"
-		]
+		],
+
+		"cover_artist": "Thomas Arnaud",
+		"cover_artist_url": "https://www.instagram.com/thomasarnaudart/",
+
+		"cover_approved": true
 	},
 
 	"kakariko": {
@@ -114,6 +145,8 @@
 		],
 
 		"cover_artist": "Jessica Smith",
-		"cover_artist_url": "https://artofjess.com"
+		"cover_artist_url": "https://artofjess.com",
+
+		"cover_approved": true
 	}
 }

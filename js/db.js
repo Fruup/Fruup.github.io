@@ -1,22 +1,32 @@
 /* DB values */
 
-function Track(trackid, title, date, tags, coverArtist, coverArtistURL) {
-    // load wav file
+const DEFAULT_COVER_IMAGE = '/covers/default.jpg'
+
+function Track(trackid, data) {
+    // load audio file
     this.howl = new Howl({
         src: ['/mp3/' + trackid + '.mp3'],
-        //src: 'https://media.githubusercontent.com/media/Fruup/Fruup.github.io/master/wav/' + trackid + '.wav',
         preload: false,
         html5: true,
     })
 
     // meta data
-    this.title = title
-    this.date = date
-    this.cover = '/covers/' + trackid + '.jpg'
+    this.title = data.title
+    this.date = new Date(
+        data.date.year,
+        data.date.month,
+        data.date.day)
+
+    if (data['cover_approved']) {
+        if (data['cover'] != undefined) this.cover = data.cover
+        else this.cover = '/covers/' + trackid + '.jpg'
+    }
+    else this.cover = DEFAULT_COVER_IMAGE
+
     this.waveform = '/img/waveforms/' + trackid + '.png'
-    this.tags = tags
-    this.coverArtist = coverArtist
-    this.coverArtistURL = coverArtistURL
+    this.tags = data.tags
+    this.coverArtist = data.cover_artist
+    this.coverArtistURL = data.cover_artist_url
 
     // methods
     this.playing = () => this.howl.playing()
@@ -44,17 +54,7 @@ db.loadTracks = async function() {
     $.getJSON('/tracks.json', function(data) {
         for (trackid in data) {
             // create new track instance
-            db.tracks[trackid] = new Track(
-                trackid,
-                data[trackid].title,
-                new Date(
-                    data[trackid].date.year,
-                    data[trackid].date.month,
-                    data[trackid].date.day),
-                data[trackid].tags,
-                data[trackid].cover_artist,
-                data[trackid].cover_artist_url,
-            )
+            db.tracks[trackid] = new Track(trackid, data[trackid])
         }
         
         if (urlVars['trackid'] != null && urlVars['trackid'] in db.tracks) {
@@ -63,7 +63,8 @@ db.loadTracks = async function() {
         }
         else {
             // set newest track
-            player.setCurrentTrack(db.getTracksByDate()[0])
+            var tracksByDate = db.getTracksByDate()
+            player.setCurrentTrack(tracksByDate[tracksByDate.length - 1])
         }
 
         // setup all track elements
