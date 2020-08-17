@@ -1,11 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-	<title>Jo</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>Hey I'm Leon</title>
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.0/howler.js"></script>
-	<!-- <script src="db.js"></script> -->
 
 	<style type="text/css">
 		body {
@@ -20,7 +22,8 @@
 		    -ms-user-select: none;
 		    user-select: none;
 
-		    font-family: monospace;
+			font-family: monospace;
+			font-size: 20px;
 		}
 
 		img {
@@ -75,42 +78,48 @@
 <body>
 
 	<div id='titleArea' style='width: 100%; height: 50px;'>
-		<div style='font-family: monospace; font-size: 50px;'>
-			<!--leon scherer-->
+		<div style='font-family: Moonglade; font-size: 50px; text-align: center;'>
+			<!---leon scherer--->
 		</div>
 	</div>
 
 	<div id='navBarAndMain'>
-		<div id='navBar'>
-			<div id='menuButtons'>
-				<!-- TODO: Make these divs, because buttons block space bar play/resume functionality -->
-				<button id='menu1' class='menuButton'>Music</button>
-				<button id='menu2' class='menuButton'>About</button>
-				<button id='menu3' class='menuButton'>Contact</button>
-			</div>
-			
-			<div id='socialButtons'>
-				<div id='social1' class='socialButton'>
-					<img class='socialImage' src='img/twitter.png'>
+		<div id='navContainer'>
+			<nav id='navBar'>
+				<div id='menuButtons'>
+					<!-- TODO: Make these divs, because buttons block space bar play/resume functionality -->
+					<button id='menu1' class='menuButton'>Music</button>
+					<button id='menu2' class='menuButton'>About</button>
+					<button id='menu3' class='menuButton'>Contact</button>
 				</div>
+				
+				<div id='socialButtons'>
+					<a href='https://twitter.com/leon_stuff' target='_blank'>
+						<div id='social1' class='socialButton'>
+							<img class='socialImage' src='img/twitter.png'>
+						</div>
+					</a>
 
-				<div id='social2' class='socialButton'>
-					<img class='socialImage' src='img/instagram.png'>
+					<a href="https://instagram.com/leonscherersan" target="_blank">
+						<div id='social2' class='socialButton'>
+							<img class='socialImage' src='img/instagram.png'>
+						</div>
+					</a>
 				</div>
-			</div>
+			</nav>
 		</div>
 
-		<div id="main1" class='main'>
+		<main id="main1" class='main'>
 			<div id='tracks'></div>
-		</div>
+		</main>
 
-		<div id="main2" class='main'>
+		<main id="main2" class='main'>
 			Hi my name is Leon
-		</div>
+		</main>
 
-		<div id="main3" class='main'>
+		<main id="main3" class='main'>
 			Hit me up (info@leonscherer.com)
-		</div>
+		</main>
 	</div>
 
 	<div id='playerStickyFooter'>

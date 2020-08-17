@@ -10,6 +10,8 @@
 }
 
 #playerArea {
+	width: 800px;
+
 	height: 80%;
 
 	display: inline-flex;
@@ -21,6 +23,22 @@
 	-ms-transform: translate(-50%, -50%);
 }
 
+@media (max-width: 800px) {
+	#playerArea {
+		width: 100%;
+	}
+}
+
+@media (max-device-width: 1000px) {
+	#playerStickyFooter {
+		height: 7cm;
+	}
+	
+	#playerArea {
+		width: 100%;
+	}
+}
+
 #play {
 	object-fit: contain;
 
@@ -28,9 +46,6 @@
 }
 
 #trackMetaAndTimeline {
-
-	width: 30vw;
-
 	margin-left: 10px;
 	margin-right: 10px;
 
