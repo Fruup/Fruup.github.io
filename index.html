@@ -65,6 +65,9 @@
 
 		// document ready
 		$(function() {
+			// set margin of main area to height of player area, so that player does not overlap main
+			$('.main').css('margin-bottom', $('#playerStickyFooter').height() + 'px')
+
 			// go to main page
 			main.switch(1);
 
