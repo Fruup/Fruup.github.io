@@ -10,10 +10,12 @@
 			"Lo-Fi"
 		],
 
+		"cover": "/covers/chillig.gif",
+
 		"cover_artist": "Martith",
 		"cover_artist_url": "https://www.instagram.com/martith.art/",
 
-		"cover_approved": false
+		"cover_approved": true
 	},
 
 	"desert": {
