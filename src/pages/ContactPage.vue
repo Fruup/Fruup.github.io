@@ -1,5 +1,12 @@
 <template>
-    <div id="contact">
+  <div id="contact">
+    <p>
+      If you would like to reach out to me, you are welcome to send me an e-mail
+      directly:
+      <a href="mailto:info@leonscherer.com">info@leonscherer.com</a>
+    </p>
+
+    <!--
       <p>
         If you would like to reach out to me, you can either send me an e-mail
         directly (<a href="mailto:info@leonscherer.com">info@leonscherer.com</a
@@ -25,6 +32,7 @@
           <button id="send-button" @click="submit">Send</button>
         </div>
       </div>
+    -->
   </div>
 </template>
 
@@ -53,10 +61,8 @@ export default {
         //and reset the form
         console.log("Thank you, for contacting us");
       });*/
-
       //https://cors-anywhere.herokuapp.com/
-
-      let formData = new FormData();
+      /*let formData = new FormData();
       formData.append("email", this.email);
       formData.append("message", this.message);
 
@@ -83,7 +89,7 @@ export default {
 
       req.send(formData);
 
-      console.log(this.message + " from " + this.sender);
+      console.log(this.message + " from " + this.sender);*/
     },
   },
 };
