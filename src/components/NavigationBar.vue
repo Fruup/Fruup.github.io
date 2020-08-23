@@ -45,18 +45,13 @@ $maxNavWidth: 1000px
   display: inline-flex
 
 .nav-button
-
   width: 90px
   height: 100%
-
   margin-right: 1px
   font-size: 13px
   text-transform: uppercase
   padding: 0
-
   text-align: center
-
-  //padding: 20px
   background-color: $uiColor
 
   display: flex

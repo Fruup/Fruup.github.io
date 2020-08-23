@@ -29,7 +29,6 @@ export default {
   border-radius: 100vmax
 
   background-color: $uiColor
-
   
   width: $navHeight
   height: 100%
@@ -46,6 +45,8 @@ div
   height: 50%
   object-fit: contain
   background-size: contain
+  background-position: center
+  background-repeat: no-repeat
 
   margin: auto
   margin-top: 50%
