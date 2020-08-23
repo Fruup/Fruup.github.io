@@ -54,6 +54,8 @@ export default {
         console.log("Thank you, for contacting us");
       });*/
 
+      //https://cors-anywhere.herokuapp.com/
+
       let formData = new FormData();
       formData.append("email", this.email);
       formData.append("message", this.message);
@@ -61,7 +63,7 @@ export default {
       let req = new XMLHttpRequest();
       req.open(
         "POST",
-        "https://getsimpleform.com/messages/ajax?form_api_token=d18c3eaa8feb3d66fa89c5f6a263bc55",
+        "https://cors-anywhere.herokuapp.com/https://getsimpleform.com/messages/ajax?form_api_token=d18c3eaa8feb3d66fa89c5f6a263bc55",
         true
       );
 
@@ -71,7 +73,7 @@ export default {
       req.responseType = "json";
 
       req.onload = function() {
-        console.log("Loaded: ${xhr.status} ${xhr.response}");
+        console.log("Loaded: " + req.status + " " + req.response);
       };
 
       req.onerror = function() {
