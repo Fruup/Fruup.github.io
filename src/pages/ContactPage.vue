@@ -61,7 +61,7 @@ export default {
       let req = new XMLHttpRequest();
       req.open(
         "POST",
-        "http://getsimpleform.com/messages/ajax?form_api_token=d18c3eaa8feb3d66fa89c5f6a263bc55",
+        "https://getsimpleform.com/messages/ajax?form_api_token=d18c3eaa8feb3d66fa89c5f6a263bc55",
         true
       );
 
