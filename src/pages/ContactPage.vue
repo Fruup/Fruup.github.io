@@ -115,11 +115,7 @@ export default {
           self.tried = true;
           self.sending = false;
         },
-        /* onError */ (a,b,c) => {
-
-          console.log(a)
-          console.log(b)
-          console.log(c)
+        /* onError */ () => {
           // set values
           self.success = false;
           self.tried = true;
