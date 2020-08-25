@@ -3,8 +3,22 @@
     <p>
       If you would like to reach out to me, you are welcome to send me an e-mail
       directly:
-      <a href="mailto:info@leonscherer.com">info@leonscherer.com</a>
+      <a
+        href="mailto:info@leonscherer.com"
+      >info@leonscherer.com</a>
     </p>
+
+    <form id="form" action="https://formspree.io/mknqadwl" method="POST">
+      <textarea type="text" id="sender-input" placeholder="Your name or e-mail..." v-model="sender"></textarea>
+      <textarea
+        type="text"
+        id="message-input"
+        placeholder="Leave me a message..."
+        v-model="message"
+      ></textarea>
+      <button id="send-button">{{getSendButtonCaption}}</button>
+      <p v-if="tried">{{getFormStatus}}</p>
+    </form>
 
     <!--
       <p>
@@ -37,59 +51,93 @@
 </template>
 
 <script>
+// helper function for sending an AJAX request
+function ajax(method, url, data, success, error) {
+  var xhr = new XMLHttpRequest();
+  xhr.open(method, url);
+  xhr.setRequestHeader("Accept", "application/json");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState !== XMLHttpRequest.DONE) return;
+    if (xhr.status === 200) {
+      success(xhr.response, xhr.responseType);
+    } else {
+      error(xhr.status, xhr.response, xhr.responseType);
+    }
+  };
+  xhr.send(data);
+}
+
 export default {
   data() {
     return {
       sender: "",
       message: "",
+
+      tried: false,
+      success: false,
+      sending: false,
+
+      form: null,
     };
   },
 
-  methods: {
-    submit() {
-      // create http request
-      /*jqueryAjax.fn({
-        dataType: "jsonp",
-        url:
-          "http://getsimpleform.com/messages/ajax?form_api_token=d18c3eaa8feb3d66fa89c5f6a263bc55",
-        data: {
-          email: this.sender,
-          message: this.message,
+  mounted() {
+    // get elements
+    this.form = document.getElementById("form");
+    var form = this.form;
+
+    // handle the form submission event
+    var self = this;
+
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+
+      // set state
+      self.sending = true;
+
+      // construct data
+      var data = new FormData();
+      //data.append("_replyto", self.sender);
+      data.append("sender", self.sender);
+      data.append("message", self.message);
+
+      // SEND IT
+      ajax(
+        form.method,
+        form.action,
+        data,
+        /* onSuccess */ () => {
+          // reset form
+          self.form.reset();
+
+          // set values
+          self.success = true;
+          self.tried = true;
+          self.sending = false;
         },
-      }).done(function() {
-        //callback which can be used to show a thank you message
-        //and reset the form
-        console.log("Thank you, for contacting us");
-      });*/
-      //https://cors-anywhere.herokuapp.com/
-      /*let formData = new FormData();
-      formData.append("email", this.email);
-      formData.append("message", this.message);
+        /* onError */ (a,b,c) => {
 
-      let req = new XMLHttpRequest();
-      req.open(
-        "POST",
-        "https://cors-anywhere.herokuapp.com/https://getsimpleform.com/messages/ajax?form_api_token=d18c3eaa8feb3d66fa89c5f6a263bc55",
-        true
+          console.log(a)
+          console.log(b)
+          console.log(c)
+          // set values
+          self.success = false;
+          self.tried = true;
+          self.sending = false;
+        }
       );
+    });
+  },
 
-      //req.setRequestHeader("Origin", "https://leonscherer.com");
-      //req.setRequestHeader('Content-Type', 'application/json');
-      //req.withCredentials = true;
-      req.responseType = "json";
+  computed: {
+    getFormStatus() {
+      return this.success
+        ? "Your message has been sent successfully!"
+        : "Bad news: Something went wrong...";
+    },
 
-      req.onload = function() {
-        console.log("Loaded: " + req.status + " " + req.response);
-      };
-
-      req.onerror = function() {
-        // only triggers if the request couldn't be made at all
-        alert("Network Error");
-      };
-
-      req.send(formData);
-
-      console.log(this.message + " from " + this.sender);*/
+    getSendButtonCaption() {
+      return this.sending ? "Sending..." : "Send";
     },
   },
 };
@@ -137,7 +185,7 @@ $formWidth: 400px
   @media (max-width: $formWidth)
     width: 85%
 
-textarea
+textarea, input
   width: 100%
   margin-bottom: 5px
 
