@@ -1,11 +1,10 @@
 <template>
   <div id="contact">
     <p>
-      If you would like to reach out to me, you are welcome to send me an e-mail
-      directly:
-      <a
-        href="mailto:info@leonscherer.com"
-      >info@leonscherer.com</a>
+      If you would like to reach out to me, you can either send me an e-mail
+      directly (<a href="mailto:info@leonscherer.com">info@leonscherer.com</a>)
+      or use the contact form below. Make sure to leave me an address in case
+      you'd like a response.
     </p>
 
     <form id="form" action="https://formspree.io/mknqadwl" method="POST">
@@ -16,37 +15,11 @@
         placeholder="Leave me a message..."
         v-model="message"
       ></textarea>
-      <button id="send-button">{{getSendButtonCaption}}</button>
+      <div style="text-align: right; width: 100%; margin: 0;">
+        <button id="send-button">{{getSendButtonCaption}}</button>
+      </div>
       <p v-if="tried">{{getFormStatus}}</p>
     </form>
-
-    <!--
-      <p>
-        If you would like to reach out to me, you can either send me an e-mail
-        directly (<a href="mailto:info@leonscherer.com">info@leonscherer.com</a
-        >) or use the contact form below. Make sure to leave me a mail address
-        in case you'd like a response.
-      </p>
-
-      <div id="form">
-        <textarea
-          type="text"
-          id="sender-input"
-          placeholder="Your name or e-mail..."
-          v-model="sender"
-        ></textarea>
-        <textarea
-          type="text"
-          id="message-input"
-          placeholder="Leave me a message..."
-          v-model="message"
-        ></textarea>
-
-        <div style="text-align: right; width: 100%; margin: 0;">
-          <button id="send-button" @click="submit">Send</button>
-        </div>
-      </div>
-    -->
   </div>
 </template>
 
