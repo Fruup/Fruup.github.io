@@ -30,6 +30,7 @@
 <script>
 import { Howl, Howler } from "howler";
 import { db } from "../db";
+import Tracker from "../tracker";
 
 // component
 export default {
@@ -147,15 +148,29 @@ export default {
         },
         onplay() {
           self.playing = true;
+
+          // send tracking event
+          Tracker.startTrack(self.currentTrackId);
+          Tracker.startListening();
         },
         onpause() {
           self.playing = false;
+
+          // send tracking event
+          Tracker.endListening();
         },
         onstop() {
           self.playing = false;
+
+          // send tracking event
+          Tracker.endListening();
         },
         onend() {
           self.playing = false;
+
+          // send tracking event
+          Tracker.trackFinishedPlaying(self.currentTrackId);
+          Tracker.endListening();
         },
       });
     },

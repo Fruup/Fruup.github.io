@@ -8,7 +8,7 @@
 
       <!-- Main content -->
       <main id="main">
-        <vue-page-transition name='fade-in-up'>
+        <vue-page-transition name="fade-in-up">
           <router-view class="main"></router-view>
         </vue-page-transition>
       </main>
@@ -16,32 +16,72 @@
 
     <!-- Footer with audio player area -->
     <footer id="footer">
-      <AudioPlayer />
+      <transition name="fade" mode="out-in">
+        <AudioPlayer v-if="cookiesAccepted" />
+        <CookieMessage :accept="acceptCookies" v-else />
+      </transition>
     </footer>
   </div>
 </template>
 
 <script>
-import Vue from 'vue'
+import Vue from "vue";
 import NavigationBar from "./components/NavigationBar";
 import AudioPlayer from "./components/AudioPlayer";
+import CookieMessage from "./components/CookieMessage";
+import CONSENT_COOKIE_KEY from "./cookie_key";
+import Tracker from "./tracker";
 
 // use vue page transition plugin
-import VuePageTransition from 'vue-page-transition'
-Vue.use(VuePageTransition)
+import VuePageTransition from "vue-page-transition";
+Vue.use(VuePageTransition);
+
+// use vue cookies
+import VueCookies from "vue-cookies";
+Vue.use(VueCookies);
+Vue.$cookies.config(/* expire times */ "365d");
 
 export default {
   components: {
     NavigationBar,
     AudioPlayer,
+    CookieMessage,
     //MoreIndicatorComp
   },
 
   data() {
     return {
-      showMoreIndicator: true
+      showMoreIndicator: true,
+      cookiesAccepted: Vue.$cookies.get(CONSENT_COOKIE_KEY),
+      //cookiesAccepted: false,
+    };
+  },
+
+  created() {
+    // setup tracker
+    Tracker.init(this.$gtag);
+
+    // end session when window closes
+    window.addEventListener(
+      "beforeunload",
+      function () {
+        Tracker.endSession();
+      },
+      false
+    );
+
+    // enable GA if user consented (check this.cookiesAccepted)
+    if (this.cookiesAccepted) {
+      this.$gtag.optIn();
     }
-  }
+  },
+
+  methods: {
+    acceptCookies() {
+      // user consented to send usage data
+      this.cookiesAccepted = true;
+    },
+  },
 };
 </script>
 
@@ -66,9 +106,6 @@ body.darkmode
 
   color: $textColorDark
 
-  .darkmode
-    color: $textColorLight
-
   width: 100vw
   height: 100vh
 
@@ -77,11 +114,16 @@ body.darkmode
 
   font-family: "Helvetica Light"
   font-size: 20px
+  
+  .darkmode
+    color: $textColorLight
 
 #nav-and-main
+  text-align: center
+
   width: 100%
   height: 100%
-
+  
   margin-bottom: $footerHeight
 
   display: flex
@@ -120,9 +162,6 @@ body.darkmode
     color: $textColorLight
     text-decoration: none
     
-    .darkmode
-      color: $textColorDark
-
   .router-link-exact-active
     transition: all .1s linear
 
@@ -132,16 +171,20 @@ body.darkmode
 #main
   width: $maxMainWidth
 
-  @media (max-width: $maxMainWidth)
-    width: 100%
-
-  flex-basis: 100%
-
-  text-align: center
-
   margin: auto
   margin-top: 20px
   margin-bottom: 1px
+
+  @media (max-width: $maxMainWidth)
+    width: 100%
+
+    flex-basis: 100%
+
+    text-align: center
+
+    margin: auto
+    margin-top: 20px
+    margin-bottom: 1px
 
   @media (max-width: $breakpointPhone)
     margin-top: 1px
@@ -152,9 +195,6 @@ body.darkmode
   width: 100%
 
   color: $textColorLight
-
-  .darkmode
-    color: $textColorDark
 
   //flex: 0 0 auto
 
@@ -173,4 +213,13 @@ body.darkmode
   justify-content: space-around
 
   background-color: $uiColor
+
+  .darkmode
+    color: $textColorDark
+
+// transitions
+.fade-enter-active, .fade-leave-active
+  transition: opacity .3s
+.fade-enter, .fade-leave-to
+  opacity: 0
 </style>
