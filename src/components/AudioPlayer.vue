@@ -9,9 +9,21 @@
 
     <div id="meta-and-timeline">
       <span id="meta">
-        <span id="meta-title">{{ title }}</span>
-        <span id="meta-dash">-</span>
-        <span id="meta-time">{{ getTimeString }}</span>
+        <div id="meta-title-time">
+          <span id="meta-title">{{ title }}</span>
+          <span id="meta-hyphen" style="margin-right: 6px" v-if="!hasCoverArtist">-</span>
+          <span id="meta-time">{{ getTimeString }}</span>
+        </div>
+        <div id="meta-artist" v-if="hasCoverArtist">
+          <span>Cover art by &nbsp;</span>
+          <a
+            id="meta-artist-url"
+            :href="getCoverArtistURL"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><span>{{ getCoverArtist }}</span></a
+          >
+        </div>
       </span>
 
       <div id="timeline" @mousedown="onSeekStart">
@@ -51,7 +63,7 @@ export default {
 
       seeking: false,
 
-      volume: .5,
+      volume: 0.5,
       selectingVolume: false,
     };
   },
@@ -62,7 +74,7 @@ export default {
         var self = this;
 
         // start seek polling
-        this.seekPollHandle = setInterval(function() {
+        this.seekPollHandle = setInterval(function () {
           // update time
           if (!self.seeking) self.progressedTime = self.seek();
         }, 20);
@@ -96,7 +108,7 @@ export default {
     this.volumeElement = document.getElementById("volume-area");
 
     // block scrolling through spacebar press, and pause/resume
-    window.onkeydown = function(e) {
+    window.onkeydown = function (e) {
       if (e.which == 32 && !e.repeat && e.target == document.body) {
         // pause/resume track
         self.togglePlayback();
@@ -191,8 +203,7 @@ export default {
         (e.clientX - this.volumeElement.offsetLeft) /
         this.volumeElement.clientWidth;
 
-      this.volume =
-        (prog < 0 ? 0 : prog > 1 ? 1 : prog);
+      this.volume = prog < 0 ? 0 : prog > 1 ? 1 : prog;
       Howler.volume(this.volume);
     },
 
@@ -273,8 +284,28 @@ export default {
 
     getVolumeOverlayStyle() {
       return {
-        width: (100 * this.volume) + "%",
+        width: 100 * this.volume + "%",
       };
+    },
+
+    getCoverArtist() {
+      if (db.currentTrackId != null) {
+        return db.tracks[db.currentTrackId].cover_artist;
+      } else {
+        return "/";
+      }
+    },
+
+    getCoverArtistURL() {
+      if (db.currentTrackId != null) {
+        return db.tracks[db.currentTrackId].cover_artist_url;
+      } else {
+        return "";
+      }
+    },
+
+    hasCoverArtist() {
+      return db.currentTrackId != null && db.tracks[db.currentTrackId].cover_artist != undefined && db.tracks[db.currentTrackId].cover_approved;
     }
   },
 };
@@ -319,18 +350,23 @@ export default {
   @media (max-width: $breakpointPhone)
     display: inline-block
 
-#meta-dash
-  margin: 0 5px
-  color: #aaaaaa
-  @media (min-width: $breakpointPhone)
-    display: none
+#meta-title-time
+  display: inline-flex
+  flex: space-between
+
+#meta-title
+  margin-right: 6px
+  
+#meta-artist
+  font-weight: normal
+  font-size: 15px
+  margin-top: 3px
+
+#meta-artist-url, #meta-artist-url:active
+  color: $accentColor
 
 #player-container
   font-family: "Moonglade"
-
-  width: $maxMainWidth
-  @media (max-width: $maxMainWidth)
-    width: 100%
 
   padding: 20px 20px
   margin: auto
@@ -346,6 +382,10 @@ export default {
 
   // box-shadow: none|h-offset v-offset blur spread color |inset|initial|inherit;
   box-shadow: 5px 5px 5px 0 black
+
+  width: $maxMainWidth
+  @media (max-width: $maxMainWidth)
+    width: 100%
 
 .button
   flex: 0 0 50px
@@ -410,9 +450,6 @@ export default {
   padding-right: 1px
 
 #volume-area
-  @media (max-width: $breakpointPhone)
-    display: none
-
   margin: auto 15px
   height: 15px
   flex: 0 0 100px
@@ -424,6 +461,9 @@ export default {
 
   position: relative
   border-radius: 3px
+
+  @media (max-width: $breakpointPhone)
+    display: none
 
 #volume-overlay
   position: absolute

@@ -5,7 +5,11 @@
     @mouseenter="onMouseEnter"
     @mouseleave="onMouseLeave"
   >
-    <div :class="computeClass" :style="computeStyle"></div>
+    <div :class="computeClass" :style="computeStyle">
+      <!-- <transition name="fade">
+        <img src="../assets/img/brush128.png" alt="paint brush" v-if="hovered">
+      </transition> -->
+    </div>
   </div>
 </template>
 
@@ -25,9 +29,7 @@ export default {
 
   methods: {
     onClick() {
-      //console.log("Clicked " + this.trackid)
-      //document.body.classList.add('darkmode')
-
+      // play this track
       db.setCurrentTrackId(this.trackid);
     },
 
@@ -43,16 +45,16 @@ export default {
   computed: {
     computeClass() {
       return {
-        'track-cover': true,
-        'hovered': this.hovered
-      }
+        "track-cover": true,
+        hovered: this.hovered,
+      };
     },
 
     computeStyle() {
       return {
         backgroundImage: "url('" + db.tracks[this.trackid].coverURL + "')",
-      }
-    }
+      };
+    },
   },
 };
 </script>
@@ -61,11 +63,12 @@ export default {
 @import '../css/defs'
 
 $minBorderSize: 1px
-$maxBorderSize: 10px
+$maxBorderSize: 12px
 //$maxBorderSize: 1vmin
 
 .track-comp
-  background-color: $backgroundColor
+  //background-color: $backgroundColor
+  background-color: $uiColor
 
   // center content
   text-align: center
@@ -81,15 +84,15 @@ $maxBorderSize: 10px
   border-style: solid
   border-color: $uiColor
 
-  .darkmode
-    border-color: $uiColor_dark
-
   border-width: $minBorderSize
 
   box-sizing: border-box
 
   // animate border width
   transition: all .2s
+
+  .darkmode
+    border-color: $uiColor_dark
 
 .track-comp:hover
   border-width: $maxBorderSize
@@ -102,12 +105,12 @@ $maxBorderSize: 10px
   background-position: center
   background-size: cover
 
-  transition: all .2s
+  transition: all .15s
 
   opacity: 1
   filter: blur(0px)
 
 .track-cover.hovered
-    opacity: .8
-    filter: blur(4px)
+  opacity: .8
+  //filter: blur(4px)
 </style>
