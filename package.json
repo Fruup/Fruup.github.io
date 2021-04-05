@@ -9,24 +9,24 @@
     "deploy": "deploy.sh"
   },
   "dependencies": {
-    "core-js": "^3.8.1",
+    "core-js": "^3.10.0",
     "howler": "^2.2.1",
     "node-forge": ">=0.10.0",
     "vue": "^2.6.11",
     "vue-cookies": "^1.7.4",
-    "vue-gtag": "^1.10.0",
+    "vue-gtag": "^1.11.0",
     "vue-page-transition": "^0.2.2",
-    "vue-router": "^3.4.9"
+    "vue-router": "^3.5.1"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "^4.5.9",
-    "@vue/cli-plugin-eslint": "^4.5.9",
-    "@vue/cli-plugin-router": "^4.5.9",
-    "@vue/cli-service": "^4.5.9",
+    "@vue/cli-plugin-babel": "^4.5.12",
+    "@vue/cli-plugin-eslint": "^4.5.12",
+    "@vue/cli-plugin-router": "^4.5.12",
+    "@vue/cli-service": "^4.5.12",
     "babel-eslint": "^10.1.0",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.2.2",
-    "sass": "^1.30.0",
+    "sass": "^1.32.8",
     "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.11"
   },
